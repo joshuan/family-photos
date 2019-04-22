@@ -1,0 +1,16 @@
+{
+  "name": "joshuan-family-photos",
+  "version": "0.0.1",
+  "description": "Family photos service",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evgeniy Shershnev <joshuan.chel@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^4.1.4"
+  }
+}
