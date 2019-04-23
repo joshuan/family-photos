@@ -1,5 +1,9 @@
 const { app, BrowserWindow } = require('electron');
+const autoUpdater = require('./main-process/autoUpdater');
+const log = require('./main-process/log');
 const keys = require('./main-process/keytar');
+
+log.info('App starting...');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -35,6 +39,7 @@ function createWindow() {
     });
 
     keys();
+    autoUpdater.checkForUpdatesAndNotify();
 }
 
 // This method will be called when Electron has finished

@@ -1,11 +1,10 @@
 const keytar = require('keytar');
+const logs = require('./log');
 
 const SERVICE = 'FAMILY_PHOTOS';
 const ACCOUNT = 'FAMILY_PHOTOS_ACCOUNT';
 
-const log = (...args) => {
-    console.log('[Keytar]', ...args);
-};
+const log = (...args) => logs.info('[Keytar]', ...args);
 
 module.exports = () => {
     log('Start');
