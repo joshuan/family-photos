@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'">
     <title>Family Photos</title>
 </head>
 <body>
     <h1>Family Photos</h1>
-    <p>
-        We are using node <script>document.write(process.versions.node)</script>,<br>
-        Chrome <script>document.write(process.versions.chrome)</script>,<br>
-        and Electron <script>document.write(process.versions.electron)</script>.
-    </p>
+    <p>Now <script>document.write(new Date)</script></p>
 </body>
 </html>

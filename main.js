@@ -1,13 +1,25 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const keys = require('./main-process/keytar');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
 function createWindow() {
-    // Create the browser window.
-    win = new BrowserWindow({ width: 1200, height: 600 });
+    console.log('Node:', process.versions.node);
+    console.log('Electron:', process.versions.electron);
+    console.log('Chrome:', process.versions.chrome);
+    console.log('Modules:', process.versions.modules);
 
+    // Create the browser window.
+    win = new BrowserWindow({
+        width: 1200,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: false
+        }
+    });
+    
     // and load the index.html of the app.
     win.loadFile('index.html');
 
@@ -21,6 +33,8 @@ function createWindow() {
         // when you should delete the corresponding element.
         win = null;
     });
+
+    keys();
 }
 
 // This method will be called when Electron has finished
@@ -47,3 +61,7 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+process.on('uncaughtException', (error) => {
+    console.error('Exception:', error);
+});
