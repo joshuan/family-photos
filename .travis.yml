@@ -24,9 +24,9 @@ script:
       -v ~/.cache/electron:/root/.cache/electron \
       -v ~/.cache/electron-builder:/root/.cache/electron-builder \
       electronuserland/builder:wine \
-      /bin/bash -c "npm ci && electron-builder --linux --win"
+      /bin/bash -c "npm ci && ./node_modules/.bin/electron-builder --linux --win"
   else
-    electron-builder --mac
+    ./node_modules/.bin/electron-builder --mac
   fi
 after_script:
 - npm run postrelease
