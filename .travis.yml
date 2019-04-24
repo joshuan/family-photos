@@ -11,12 +11,6 @@ matrix:
       services: docker
       language: generic
 
-cache:
-  directories:
-    - node_modules
-    - "$HOME/.cache/electron"
-    - "$HOME/.cache/electron-builder"
-
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -30,12 +24,7 @@ script:
     else
       ./node_modules/.bin/electron-builder --mac
     fi
-
-after_script:
   - npm run postrelease
-
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
 
 deploy:
   provider: s3
