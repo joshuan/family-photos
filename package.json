@@ -2,6 +2,7 @@
   "name": "joshuan-family-photos",
   "version": "0.0.1",
   "description": "Family photos service",
+  "homepage": "https://app.family-photos.joshuan.ru/",
   "main": "main.js",
   "private": true,
   "scripts": {
@@ -9,7 +10,8 @@
     "rebuild": "electron-rebuild -f -o keytar",
     "prebuild": "electron-builder install-app-deps",
     "build": "electron-builder -mwl",
-    "release": "rm -rf build && npm run build && rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}"
+    "release": "rm -rf build && npm run build && rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
+    "test": "echo Tested!"
   },
   "author": {
     "name": "Evgeniy Shershnev",

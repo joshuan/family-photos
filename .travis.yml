@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "10.12.0"
+
+before_install:
+  - sudo apt-get install libsecret-1-dev
+
+install:
+  - npm ci
+
+script:
+  - npm test
+  - electron-builder -l
