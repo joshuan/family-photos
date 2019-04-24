@@ -1,37 +1,42 @@
 matrix:
   include:
-  - os: osx
-    osx_image: xcode9.4
-    language: node_js
-    node_js: '10'
-    env:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-  - os: linux
-    services: docker
-    language: generic
+    - os: osx
+      osx_image: xcode9.4
+      language: node_js
+      node_js: '10'
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    - os: linux
+      services: docker
+      language: generic
+
 cache:
   directories:
-  - node_modules
-  - "$HOME/.cache/electron"
-  - "$HOME/.cache/electron-builder"
+    - node_modules
+    - "$HOME/.cache/electron"
+    - "$HOME/.cache/electron-builder"
+
 script:
-- |
-  if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-    docker run --rm \
-      --env-file <(env | grep -vE '\r|\n' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
-      -v ${PWD}:/project \
-      -v ~/.cache/electron:/root/.cache/electron \
-      -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-      electronuserland/builder:wine \
-      /bin/bash -c "npm ci && ./node_modules/.bin/electron-builder --linux --win"
-  else
-    ./node_modules/.bin/electron-builder --mac
-  fi
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      docker run --rm \
+        --env-file <(env | grep -vE '\r|\n' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "npm ci && ./node_modules/.bin/electron-builder --linux --win"
+    else
+      ./node_modules/.bin/electron-builder --mac
+    fi
+
 after_script:
-- npm run postrelease
+  - npm run postrelease
+
 before_cache:
-- rm -rf $HOME/.cache/electron-builder/wine
+  - rm -rf $HOME/.cache/electron-builder/wine
+
 deploy:
   provider: s3
   access_key_id:
@@ -41,4 +46,7 @@ deploy:
   bucket: family-photos-app
   region: eu-central-1
   local_dir: build
+  upload-dir: $TRAVIS_BRANCH
   skip_cleanup: true
+  on:
+    all_branches: true
