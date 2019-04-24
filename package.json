@@ -10,7 +10,8 @@
     "rebuild": "electron-rebuild -f -o keytar",
     "prebuild": "electron-builder install-app-deps",
     "build": "electron-builder -mwl",
-    "release": "rm -rf build && npm run build && rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
+    "release": "rm -rf build && npm run build && npm run postrelease",
+    "postrelease": "rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
     "test": "echo Tested!"
   },
   "author": {
