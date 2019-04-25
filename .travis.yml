@@ -24,7 +24,8 @@ script:
     else
       ./node_modules/.bin/electron-builder --mac
     fi
-  - npm run postrelease
+  - sudo rm -rf ./build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
+  - ls -la ./build
 
 deploy:
   provider: s3
