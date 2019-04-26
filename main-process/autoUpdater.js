@@ -2,7 +2,6 @@ const { autoUpdater } = require('electron-updater');
 const log = require('./log');
 
 autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
 
 autoUpdater.on('checking-for-update', () => {
   log.info('Checking for update...');

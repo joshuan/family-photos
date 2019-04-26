@@ -10,10 +10,10 @@ log.info('App starting...');
 let win;
 
 function createWindow() {
-    console.log('Node:', process.versions.node);
-    console.log('Electron:', process.versions.electron);
-    console.log('Chrome:', process.versions.chrome);
-    console.log('Modules:', process.versions.modules);
+    log.verbose('Node:', process.versions.node);
+    log.verbose('Electron:', process.versions.electron);
+    log.verbose('Chrome:', process.versions.chrome);
+    log.verbose('Modules:', process.versions.modules);
 
     // Create the browser window.
     win = new BrowserWindow({
@@ -66,7 +66,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-process.on('uncaughtException', (error) => {
-    console.error('Exception:', error);
-});
