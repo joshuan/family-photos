@@ -6,9 +6,9 @@
   "main": "main.js",
   "private": true,
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "rebuild": "electron-rebuild -f -o keytar",
-    "prebuild": "electron-builder install-app-deps",
     "build": "electron-builder",
     "clean": "rm -rf build",
     "clean-extra": "rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
@@ -19,12 +19,14 @@
     "email": "joshuan.chel@gmail.com"
   },
   "license": "ISC",
+  "dependencies": {
+    "electron-log": "3.0.5",
+    "electron-updater": "4.0.6",
+    "keytar": "4.6.0"
+  },
   "devDependencies": {
     "electron": "5.0.0",
     "electron-builder": "20.39.0",
-    "electron-log": "3.0.5",
-    "electron-rebuild": "1.8.4",
-    "electron-updater": "4.0.6",
-    "keytar": "4.6.0"
+    "electron-rebuild": "1.8.4"
   }
 }
