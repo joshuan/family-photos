@@ -20,12 +20,11 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "npm install && ./node_modules/.bin/electron-builder --linux --win"
+        /bin/bash -c "npm ci && npm run build -- --linux --win"
     else
-      ./node_modules/.bin/electron-builder --mac
+      npm run build -- --mac
     fi
   - sudo rm -rf ./build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
-  - ls -la ./build
 
 deploy:
   provider: s3
