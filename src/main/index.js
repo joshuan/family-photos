@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
-const autoUpdater = require('./main-process/autoUpdater');
-const log = require('./main-process/log');
-const keys = require('./main-process/keytar');
+const autoUpdater = require('./lib/autoUpdater');
+const log = require('./lib/log');
+const keys = require('./lib/keytar');
 
 log.info('App starting...');
 
