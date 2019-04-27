@@ -3,7 +3,7 @@ matrix:
     - os: osx
       osx_image: xcode9.4
       language: node_js
-      node_js: '12'
+      node_js: '10'
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -26,7 +26,7 @@ script:
     else
       npm ci && npm run build -- --mac
     fi
-  - sudo rm -rf ./build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
+  - sudo rm -rf ./build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
 
 deploy:
   provider: s3
@@ -36,7 +36,7 @@ deploy:
     secure: wMGkQLXOn0bBdBWR03om1gsPF4dEjHHYWqMtowGnBJd0IoHbuvMN1zKgLVreVBMcJxarAl2FFIB74073SpSf7cwUn4F7fzHMOr1bigsUK/kwn5J1NFRXnjoz6I78YI1IJEPwSNNr5ZEjVJtnq/NElXuwQdbXm9oRYF9U7WdwVt+P9XQY8dpGtGeyMLJT8zQN9iD8l7IRHU1jHgu+3cJTEn6VvDKCF+Emf0JOBd2kIAknBzqNhgeaUHMjM190etjZAQu0TtBOnvMF8+RqzIBpJm7ICVBatg231mh5ehHd6OwayddBipNao+NtRBsaW/zVhRWvwbaVe8K/avxccaOKRXIWmUDzpoMD+p+XFdr3J/ncrS40+k1KigkFX8foVHZUHh/uOrrK1krsApTVmzvV8Dt07LiUCaILMYE0OUIqgwSG+3e+2taGBHJECw8RmlTNoqjxl9QVZofUf/Dhq3hor52RMh27sliNSFEC1U1qYus7FwiqV/hG1i3s8kMtdRf/Oxb16N9sjs5uZBJJCoDTGgpZdChs4ldeRBtgizPruCfIMtVb4mU6kVC3FY+45yngkUWh7lDg6hzJ9MISJX6s6jyqHbqoAogLqqW1R4lhciwxQHMTb4tZ/UypIS50cwoHYa94uOqq12yQ2qnnBwE7tJw/4OCULjfxnSooxiCypFw=
   bucket: family-photos-app
   region: eu-central-1
-  local_dir: build
+  local_dir: build/app
   upload-dir: $TRAVIS_BRANCH
   skip_cleanup: true
   on:

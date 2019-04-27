@@ -3,15 +3,17 @@
   "version": "0.0.1",
   "description": "Family photos service",
   "homepage": "https://app.family-photos.joshuan.ru/",
-  "main": "main.js",
+  "main": "build/main/",
   "private": true,
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "rebuild": "electron-rebuild -f -o keytar",
+    "prebuild": "npm run webpack -- --mode production",
     "build": "electron-builder",
+    "webpack": "webpack",
     "clean": "rm -rf build",
-    "clean-extra": "rm -rf build/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
+    "clean-extra": "rm -rf build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
     "test": "echo Tested!"
   },
   "author": {
@@ -25,8 +27,15 @@
     "keytar": "4.6.0"
   },
   "devDependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "@babel/preset-typescript": "7.3.3",
+    "babel-loader": "8.0.5",
     "electron": "5.0.0",
     "electron-builder": "20.39.0",
-    "electron-rebuild": "1.8.4"
+    "electron-rebuild": "1.8.4",
+    "node-loader": "0.6.0",
+    "webpack": "5.0.0-alpha.11",
+    "webpack-cli": "3.3.1"
   }
 }

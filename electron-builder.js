@@ -3,7 +3,7 @@ module.exports = {
   productName: 'Family Photos',
   copyright: '© 2019 Evgeniy Shershnev',
   directories: {
-    output: 'build'
+    output: 'build/app'
   },
   publish: {
     provider: 'generic',
