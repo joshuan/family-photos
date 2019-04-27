@@ -9,11 +9,23 @@ matrix:
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
     - os: linux
       services: docker
-      language: generic
+      language: node_js
+      node_js: '10'
 
-before_script:
+cache:
+  directories:
+    - "$HOME/.npm"
+
+install:
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      npm ci --ignore-scripts
+    else
+      npm ci
+    fi
 
 script:
+  - npm run lint
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm \
@@ -22,11 +34,11 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "npm ci && npm run build -- --linux --win"
+        /bin/bash -c "npm run rebuild && npm run build -- --linux --win"
     else
-      npm ci && npm run build -- --mac
+      npm run build -- --mac
     fi
-  - sudo rm -rf ./build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
+  - sudo rm -rf build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
 
 deploy:
   provider: s3

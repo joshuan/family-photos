@@ -1,9 +1,10 @@
-import keytar from 'keytar';
+import * as keytar from 'keytar';
 import logs from './log';
 
 const SERVICE = 'FAMILY_PHOTOS';
 const ACCOUNT = 'FAMILY_PHOTOS_ACCOUNT';
 
+// @ts-ignore
 const log = (...args) => logs.info('[Keytar]', ...args);
 
 export default () => {

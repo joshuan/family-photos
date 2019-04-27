@@ -5,6 +5,10 @@ module.exports = {
   directories: {
     output: 'build/app'
   },
+  files: [
+    "build/main/**/*",
+    "node_modules/**/*"
+  ],
   publish: {
     provider: 'generic',
     url: 'https://app.family-photos.joshuan.ru/desktop/',

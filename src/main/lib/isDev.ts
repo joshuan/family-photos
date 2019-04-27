@@ -1,5 +1,3 @@
-import electron from 'electron';
+import { app, remote } from 'electron';
 
-const app = electron.app || electron.remote.app;
-
-export default !app.isPackaged;
+export default !(app || remote.app).isPackaged;
