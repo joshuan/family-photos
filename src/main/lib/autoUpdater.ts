@@ -1,5 +1,5 @@
-const { autoUpdater } = require('electron-updater');
-const log = require('./log');
+import { autoUpdater } from 'electron-updater';
+import log from './log';
 
 autoUpdater.logger = log;
 
@@ -30,4 +30,4 @@ autoUpdater.on('update-downloaded', (info) => {
   log.info('Update downloaded');
 });
 
-module.exports = autoUpdater;
+export default autoUpdater;

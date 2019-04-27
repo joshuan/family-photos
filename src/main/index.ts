@@ -1,7 +1,7 @@
-const { app, BrowserWindow } = require('electron');
-const autoUpdater = require('./lib/autoUpdater');
-const log = require('./lib/log');
-const keys = require('./lib/keytar');
+import { app, BrowserWindow } from 'electron';
+import autoUpdater from './lib/autoUpdater';
+import log from './lib/log';
+import keys from './lib/keytar';
 
 log.info('App starting...');
 

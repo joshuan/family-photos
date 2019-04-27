@@ -1,5 +1,5 @@
-const log = require('electron-log');
-const isDev = require('./isDev');
+import log from 'electron-log';
+import isDev from './isDev';
 
 // electron-log
 //
@@ -13,4 +13,4 @@ log.transports.console.level = isDev ? 'debug' : 'info';
 
 log.catchErrors();
 
-module.exports = log;
+export default log;
