@@ -21,18 +21,21 @@ module.exports = {
       'zip'
     ],
     category: 'public.app-category.photography',
-    identity: null
+    identity: null,
+    icon: './assets/icons/mac/app.icns'
   },
   win: {
     target: [
       'nsis'
-    ]
+    ],
+    icon: './assets/icons/win/app.ico'
   },
   linux: {
     target: [
       'AppImage',
       'deb'
     ],
-    category: 'Graphics'
+    category: 'Graphics',
+    icon: './assets/icons/png'
   }
 };
