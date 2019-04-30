@@ -1,10 +1,6 @@
 const path = require('path');
 
-module.exports = {
-    entry: {
-        main: './src/main',
-    },
-    target: 'electron-main',
+const common = {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name]/index.js'
@@ -53,5 +49,34 @@ module.exports = {
             '.js',
             '.ts'
         ]
-    }
+    },
+    externals: [
+        require('webpack-node-externals')()
+    ]
 };
+
+const main = {
+    entry: {
+        main: './src/main',
+    },
+    target: 'electron-main'
+};
+
+const renderer = {
+    entry: {
+        renderer: './src/renderer'
+    },
+    target: 'electron-renderer'
+};
+
+module.exports = [
+    {
+        ...common,
+        ...main
+    },
+    {
+        ...common,
+        ...renderer
+    }
+];
+

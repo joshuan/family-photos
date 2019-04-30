@@ -1,26 +1,21 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import autoUpdater from './lib/autoUpdater';
-import log from './lib/log';
 import keys from './lib/keytar';
-
-log.info('App starting...');
+import log from './lib/log';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null = null;
 
-function createWindow() {
-    log.verbose('Node:', process.versions.node);
-    log.verbose('Electron:', process.versions.electron);
-    log.verbose('Chrome:', process.versions.chrome);
-    log.verbose('Modules:', process.versions.modules);
+log.info('App starting...');
 
+function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
         width: 1200,
         height: 600,
         webPreferences: {
-            nodeIntegration: false
+            nodeIntegration: true
         }
     });
     
@@ -38,6 +33,12 @@ function createWindow() {
         win = null;
     });
 
+    ipcMain.on('app:ready', (event: Event, data: any) => {
+        if (win) {
+            win.webContents.send('app:ready:reply', data);
+        }
+    });
+
     keys();
     autoUpdater.checkForUpdatesAndNotify();
 }
@@ -45,7 +46,14 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+    log.verbose('Node:', process.versions.node);
+    log.verbose('Electron:', process.versions.electron);
+    log.verbose('Chrome:', process.versions.chrome);
+    log.verbose('Modules:', process.versions.modules);
+
+    createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

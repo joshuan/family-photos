@@ -9,7 +9,9 @@ module.exports = {
     output: 'build/app'
   },
   files: [
+    "index.html",
     "build/main/**/*",
+    "build/renderer/**/*",
     "node_modules/**/*"
   ],
   publish: {

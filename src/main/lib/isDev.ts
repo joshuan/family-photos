@@ -1,3 +1,3 @@
-import { app, remote } from 'electron';
+import { app } from 'electron';
 
-export default !(app || remote.app).isPackaged;
+export default !app.isPackaged;
