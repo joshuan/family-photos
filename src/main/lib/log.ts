@@ -11,6 +11,16 @@ import isDev from './isDev';
 log.transports.file.level = isDev ? 'silly' : 'debug';
 log.transports.console.level = isDev ? 'debug' : 'info';
 
+log.transports.console.format = '%c{h}:{i}:{s}.{ms}%c [{level}] › {text}';
+
+if (process.argv.includes('--verbose')) {
+    log.transports.console.level = 'verbose';
+}
+
+if (process.argv.includes('--debug')) {
+    log.transports.console.level = 'debug';
+}
+
 log.catchErrors();
 
 export default log;

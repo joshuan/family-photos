@@ -1,3 +1,6 @@
+const branch = process.env.TRAVIS_BRANCH || 'master';
+const channel = branch === 'master' ? 'latest' : 'beta';
+
 module.exports = {
   appId: 'ru.joshuan.family-photos.app',
   productName: 'Family Photos',
@@ -11,8 +14,8 @@ module.exports = {
   ],
   publish: {
     provider: 'generic',
-    url: 'https://app.family-photos.joshuan.ru/desktop/',
-    channel: 'beta'
+    url: `https://s3.eu-central-1.amazonaws.com/family-photos-app/${branch}/`,
+    channel
   },
   artifactName: 'FamilyPhotos_${version}.${ext}',
   mac: {

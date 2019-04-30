@@ -5,7 +5,7 @@ const SERVICE = 'FAMILY_PHOTOS';
 const ACCOUNT = 'FAMILY_PHOTOS_ACCOUNT';
 
 // @ts-ignore
-const log = (...args) => logs.info('[Keytar]', ...args);
+const log = (...args) => logs.debug('[Keytar]', ...args);
 
 export default () => {
     log('Start');
