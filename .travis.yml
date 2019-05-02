@@ -7,34 +7,19 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+        - DEBUG=scripts:*,electron-builder
     - os: linux
       services: docker
       language: node_js
       node_js: '12'
+      env:
+        - DEBUG=scripts:*,electron-builder
 
 install:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      npm ci --ignore-scripts
-    else
-      npm ci
-    fi
+  - bash ./scripts/ci-install.sh
 
 script:
-  - npm run lint
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm \
-        --env-file <(env | grep -vE '\r|\n' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
-        -v ${PWD}:/project \
-        -v ~/.cache/electron:/root/.cache/electron \
-        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder:wine \
-        /bin/bash -c "npm run rebuild && npm run build -- --linux --win"
-    else
-      npm run build -- --mac
-    fi
-  - npm run clean-extra
+  - bash ./scripts/ci-build.sh
 
 deploy:
   provider: s3
@@ -45,8 +30,10 @@ deploy:
   bucket: family-photos-app
   region: eu-central-1
   local_dir: build/app
-  upload-dir: $TRAVIS_BRANCH
   skip_cleanup: true
   on:
     all_branches: true
     condition: $TRAVIS_BRANCH =~ ^develop|master$
+
+notification:
+  email: false

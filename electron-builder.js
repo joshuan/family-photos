@@ -1,3 +1,4 @@
+const debug = require('debug')('electron-builder');
 const { CI, BRANCH, BUILD, PR, TAG } = require('./scripts/ci-env');
 const buildVariant = (() => {
   if (!CI) { return 'local'; }
@@ -6,12 +7,19 @@ const buildVariant = (() => {
   return 'branch';
 })();
 
+const dirName = {
+  local: '',
+  tag: '/dist',
+  pr: `/dev/pull-${PR}`,
+  branch: `/dev/branch-${BRANCH}`
+}[buildVariant];
+
 module.exports = {
   appId: 'ru.joshuan.family-photos.app',
   productName: 'Family Photos',
   copyright: '© 2019 Evgeniy Shershnev',
   directories: {
-    output: 'build/app'
+    output: `build/app${dirName}`
   },
   files: [
     "index.html",
@@ -21,11 +29,7 @@ module.exports = {
   ],
   publish: CI && {
     provider: 'generic',
-    url: {
-      branch: `https://s3.eu-central-1.amazonaws.com/family-photos-app/${BRANCH}/`,
-      pr: `https://s3.eu-central-1.amazonaws.com/family-photos-app/pull-${PR}/`,
-      tag: `https://s3.eu-central-1.amazonaws.com/family-photos-app/dist/`
-    }[buildVariant],
+    url: `https://s3.eu-central-1.amazonaws.com/family-photos-app${dirName}/`,
     channel: {
       branch: 'beta',
       pr: 'alpha',
