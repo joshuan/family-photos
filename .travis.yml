@@ -12,16 +12,6 @@ matrix:
       language: node_js
       node_js: '12'
 
-cache:
-  directories:
-    - "$HOME/.npm"
-    - node_modules		
-    - "$HOME/.cache/electron"		
-    - "$HOME/.cache/electron-builder"
-
-before_cache:		
-   - rm -rf $HOME/.cache/electron-builder/wine
-
 install:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -44,7 +34,7 @@ script:
     else
       npm run build -- --mac
     fi
-  - sudo rm -rf build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}
+  - npm run clean-extra
 
 deploy:
   provider: s3

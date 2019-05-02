@@ -3,6 +3,8 @@ import log from './log';
 
 autoUpdater.logger = log;
 
+log.verbose(`Updater channel: ${autoUpdater.channel}`);
+
 autoUpdater.on('checking-for-update', () => {
   log.verbose(`Update URL: "${autoUpdater.getFeedURL()}"`);
 });

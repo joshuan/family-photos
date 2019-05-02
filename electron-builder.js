@@ -1,5 +1,10 @@
-const branch = process.env.TRAVIS_BRANCH || 'master';
-const channel = branch === 'master' ? 'latest' : 'beta';
+const { CI, BRANCH, BUILD, PR, TAG } = require('./scripts/ci-env');
+const buildVariant = (() => {
+  if (!CI) { return 'local'; }
+  if (TAG) { return 'tag'; }
+  if (PR) { return 'pr'; }
+  return 'branch';
+})();
 
 module.exports = {
   appId: 'ru.joshuan.family-photos.app',
@@ -14,11 +19,20 @@ module.exports = {
     "build/renderer/**/*",
     "node_modules/**/*"
   ],
-  publish: {
+  publish: CI && {
     provider: 'generic',
-    url: `https://s3.eu-central-1.amazonaws.com/family-photos-app/${branch}/`,
-    channel
+    url: {
+      branch: `https://s3.eu-central-1.amazonaws.com/family-photos-app/${BRANCH}/`,
+      pr: `https://s3.eu-central-1.amazonaws.com/family-photos-app/pull-${PR}/`,
+      tag: `https://s3.eu-central-1.amazonaws.com/family-photos-app/dist/`
+    }[buildVariant],
+    channel: {
+      branch: 'beta',
+      pr: 'alpha',
+      tag: 'latest'
+    }[buildVariant]
   },
+  buildVersion: CI && BUILD,
   artifactName: 'FamilyPhotos_${version}.${ext}',
   mac: {
     target: [ 

@@ -8,6 +8,14 @@ import log from './lib/log';
 let win: BrowserWindow | null = null;
 
 log.info('App starting...');
+log.verbose(`App name: ${app.getName()}`);
+log.verbose(`App version: ${app.getVersion()}`);
+log.verbose(`App locale: ${app.getLocale()} (code: ${app.getLocaleCountryCode()})`);
+
+log.verbose(`Metriks: ${JSON.stringify(app.getAppMetrics(), null, 4)}`);
+app.getGPUInfo('basic').then((data) => {
+    log.verbose(`GPU info: ${JSON.stringify(data, null, 4)}`);
+});
 
 function createWindow() {
     // Create the browser window.

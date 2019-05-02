@@ -1,48 +1,49 @@
 {
-  "name": "joshuan-family-photos",
-  "version": "0.0.1",
-  "description": "Family photos service",
-  "homepage": "https://app.family-photos.joshuan.ru/",
-  "main": "build/main/index.js",
-  "private": true,
-  "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-    "start": "electron .",
-    "typecheck": "tsc",
-    "lint": "npm run typecheck",
-    "rebuild": "electron-rebuild -f -o keytar",
-    "prebuild": "npm run webpack -- --mode production",
-    "build": "electron-builder",
-    "webpack": "webpack",
-    "clean": "rm -rf build",
-    "clean-extra": "rm -rf build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
-    "test": "echo Tested!",
-    "generate-icons": "cd assets && npx electron-icon-generator ./src/joshuan-family-photos-icon-original.png"
-  },
-  "author": {
-    "name": "Evgeniy Shershnev",
-    "email": "joshuan.chel@gmail.com"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "electron-log": "3.0.5",
-    "electron-updater": "4.0.6",
-    "keytar": "4.6.0"
-  },
-  "devDependencies": {
-    "@babel/core": "7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
-    "@babel/preset-env": "7.4.4",
-    "@babel/preset-typescript": "7.3.3",
-    "@types/semver": "6.0.0",
-    "babel-loader": "8.0.5",
-    "electron": "5.0.0",
-    "electron-builder": "20.39.0",
-    "electron-rebuild": "1.8.4",
-    "node-loader": "0.6.0",
-    "typescript": "3.4.5",
-    "webpack": "5.0.0-alpha.11",
-    "webpack-cli": "3.3.1",
-    "webpack-node-externals": "1.7.2"
-  }
+    "name": "joshuan-family-photos",
+    "version": "0.0.1",
+    "description": "Family photos service",
+    "homepage": "https://app.family-photos.joshuan.ru/",
+    "main": "build/main/index.js",
+    "private": true,
+    "scripts": {
+        "postinstall": "electron-builder install-app-deps",
+        "start": "electron .",
+        "typecheck": "tsc",
+        "lint": "npm run typecheck",
+        "rebuild": "electron-rebuild -f -o keytar",
+        "prebuild": "node ./scripts/ci-version.js && webpack --mode production",
+        "build": "electron-builder",
+        "webpack": "webpack",
+        "clean": "rm -rf build",
+        "clean-extra": "rm -rf build/app/{linux-unpacked,mac,win-unpacked,builder-effective-config.yaml}",
+        "test": "echo Tested!",
+        "generate-icons": "cd assets && npx electron-icon-generator ./src/joshuan-family-photos-icon-original.png"
+    },
+    "author": {
+        "name": "Evgeniy Shershnev",
+        "email": "joshuan.chel@gmail.com"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "electron-log": "3.0.5",
+        "electron-updater": "4.0.6",
+        "keytar": "4.6.0"
+    },
+    "devDependencies": {
+        "@babel/core": "7.4.4",
+        "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+        "@babel/preset-env": "7.4.4",
+        "@babel/preset-typescript": "7.3.3",
+        "@types/semver": "6.0.0",
+        "babel-loader": "8.0.5",
+        "debug": "4.1.1",
+        "electron": "5.0.0",
+        "electron-builder": "20.39.0",
+        "electron-rebuild": "1.8.4",
+        "node-loader": "0.6.0",
+        "typescript": "3.4.5",
+        "webpack": "5.0.0-alpha.11",
+        "webpack-cli": "3.3.1",
+        "webpack-node-externals": "1.7.2"
+    }
 }
