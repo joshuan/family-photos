@@ -1,6 +1,6 @@
 {
     "name": "joshuan-family-photos",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Family photos service",
     "homepage": "https://family-photos.joshuan.ru/",
     "main": "build/main/index.js",
