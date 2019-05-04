@@ -31,7 +31,9 @@ function createWindow() {
     win.loadFile('index.html');
 
     // Open the DevTools.
-    win.webContents.openDevTools();
+    if (['debug', 'verbose'].includes(log.transports.console.level)) {
+        win.webContents.openDevTools();
+    }
 
     // Emitted when the window is closed.
     win.on('closed', () => {

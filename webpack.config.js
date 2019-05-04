@@ -1,6 +1,7 @@
 const path = require('path');
 
 const common = {
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name]/index.js'

@@ -9,9 +9,9 @@ const buildVariant = (() => {
 
 const dirName = {
   local: '',
-  tag: '/dist',
-  pr: `/dev/pull-${PR}`,
-  branch: `/dev/branch-${BRANCH}`
+  tag: '',
+  pr: `/pull-${PR}`,
+  branch: `/branch-${BRANCH}`
 }[buildVariant];
 
 module.exports = {
@@ -29,7 +29,11 @@ module.exports = {
   ],
   publish: CI && {
     provider: 'generic',
-    url: `https://s3.eu-central-1.amazonaws.com/family-photos-app${dirName}/`,
+    url: {
+      branch: `https://s3.eu-central-1.amazonaws.com/family-photos-app-dev${dirName}/`,
+      pr: `https://s3.eu-central-1.amazonaws.com/family-photos-app-dev${dirName}/`,
+      tag: 'https://s3.eu-central-1.amazonaws.com/family-photos-app/'
+    },
     channel: {
       branch: 'beta',
       pr: 'alpha',

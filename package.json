@@ -2,7 +2,7 @@
     "name": "joshuan-family-photos",
     "version": "0.0.1",
     "description": "Family photos service",
-    "homepage": "https://app.family-photos.joshuan.ru/",
+    "homepage": "https://family-photos.joshuan.ru/",
     "main": "build/main/index.js",
     "private": true,
     "scripts": {
@@ -11,7 +11,7 @@
         "typecheck": "tsc",
         "lint": "npm run typecheck",
         "rebuild": "electron-rebuild -f -o keytar",
-        "prebuild": "node ./scripts/ci-version.js && webpack --mode production",
+        "prebuild": "node ./scripts/ci-version.js && webpack",
         "build": "electron-builder",
         "build:mac": "electron-builder --mac",
         "build:win-linux": "bash ./scripts/build-win-linux.sh",
