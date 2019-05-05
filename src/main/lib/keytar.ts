@@ -7,7 +7,7 @@ const ACCOUNT = 'FAMILY_PHOTOS_ACCOUNT';
 // @ts-ignore
 const log = (...args) => logs.debug('[Keytar]', ...args);
 
-export default () => {
+export const test = () => {
     log('Start');
 
     keytar

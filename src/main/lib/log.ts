@@ -1,5 +1,7 @@
-import log from 'electron-log';
+import log, { ILogLevel } from 'electron-log';
 import isDev from './isDev';
+
+let consoleLevel = 'info';
 
 // electron-log
 //
@@ -22,5 +24,9 @@ if (process.argv.includes('--debug')) {
 }
 
 log.catchErrors();
+
+export const getLogLevel = (): ILogLevel => {
+    return log.transports.console.level || 'silly';
+};
 
 export default log;
