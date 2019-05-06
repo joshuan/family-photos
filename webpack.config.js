@@ -1,4 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
+const packageJSON = require('./package.json');
+
+require('dotenv').config();
 
 const common = {
     mode: 'production',
@@ -16,7 +20,14 @@ const common = {
                     options: {
                         presets: [
                             '@babel/preset-typescript',
-                            '@babel/preset-env'
+                            [ 
+                                '@babel/preset-env', 
+                                {
+                                    targets: {
+                                        node: '12.1.0'
+                                    }
+                                }
+                            ]
                         ],
                         plugins: [
                             '@babel/plugin-proposal-object-rest-spread'
@@ -53,17 +64,34 @@ const common = {
     },
     externals: [
         require('webpack-node-externals')()
+    ],
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.VERSION': JSON.stringify(packageJSON.version)
+        })
     ]
 };
 
 const main = {
+    ...common,
     entry: {
-        main: './src/main',
+        main: [
+            'babel-polyfill',
+            './src/main' 
+        ]
     },
-    target: 'electron-main'
+    target: 'electron-main',
+    plugins: [
+        ...common.plugins,
+        new webpack.DefinePlugin({
+            'process.env.GOOGLE_OAUTH_CLIENT_ID': JSON.stringify(process.env.GOOGLE_OAUTH_CLIENT_ID),
+            'process.env.GOOGLE_OAUTH_CLIENT_SECRET': JSON.stringify(process.env.GOOGLE_OAUTH_CLIENT_SECRET)
+        })
+    ]
 };
 
 const renderer = {
+    ...common,
     entry: {
         renderer: './src/renderer'
     },
@@ -71,13 +99,7 @@ const renderer = {
 };
 
 module.exports = [
-    {
-        ...common,
-        ...main
-    },
-    {
-        ...common,
-        ...renderer
-    }
+    main,
+    renderer
 ];
 

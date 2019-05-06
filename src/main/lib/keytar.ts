@@ -2,35 +2,18 @@ import * as keytar from 'keytar';
 import logs from './log';
 
 const SERVICE = 'FAMILY_PHOTOS';
-const ACCOUNT = 'FAMILY_PHOTOS_ACCOUNT';
+const ACCOUNT = 'GOOGLE_PHOTOS';
 
-// @ts-ignore
-const log = (...args) => logs.debug('[Keytar]', ...args);
+type TokenTypes = 'ACCESS' | 'REFRESH' | 'ID';
 
-export const test = () => {
-    log('Start');
+const getAccountName = (type: TokenTypes) => {
+    return `${ACCOUNT}_${type}_TOKEN`;
+}
 
-    keytar
-        .findCredentials(SERVICE)
-        .then((value) => {
-            log('Found credentionals:', value);
+export const getToken = (type: TokenTypes) => {
+    return keytar.getPassword(SERVICE, getAccountName(type));
+}
 
-            return keytar.setPassword(SERVICE, ACCOUNT, 'superpuperpassword');
-        })
-        .then(() => {
-            log('Password was saved');
-
-            return keytar.getPassword(SERVICE, ACCOUNT);
-        })
-        .then((data) => {
-            log('Password was getted:', data);
-
-            return keytar.findCredentials(SERVICE);
-        })
-        .then((value) => {
-            log('Found credentionals:', value);
-        })
-        .catch((error) => {
-            log('Error:', error);
-        });
+export const saveToken = (token: string, type: TokenTypes) => {
+    return keytar.setPassword(SERVICE, getAccountName(type), token);
 };

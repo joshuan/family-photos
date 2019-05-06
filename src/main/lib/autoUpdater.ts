@@ -32,4 +32,8 @@ autoUpdater.on('update-downloaded', (info) => {
   log.debug(`Update downloaded: ${JSON.stringify(info, null, 4)}`);
 });
 
+export const init = () => {
+  autoUpdater.checkForUpdatesAndNotify();
+};
+
 export default autoUpdater;

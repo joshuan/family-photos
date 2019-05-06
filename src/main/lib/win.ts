@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 import { getLogLevel } from './log';
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -25,7 +25,7 @@ export const sendEvent = (event: string, data?: any) => {
     win.webContents.send(event, data);
 }
 
-export const createWindow = () => {
+export const createWindow = (token: string): BrowserWindow => {
     if (!isWindowCreated()) {
         throw new Error('Can not create similar window');
     }
@@ -55,7 +55,9 @@ export const createWindow = () => {
         win = null;
     });
 
-    ipcMain.on('app:ready', (event: Event, data: any) => {
-        sendEvent('app:ready:reply', data);
+    ipcMain.on('app:ready', (event: Event) => {
+        sendEvent('google:token', token);
     });
+
+    return win;
 }

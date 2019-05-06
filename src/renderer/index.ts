@@ -1,9 +1,10 @@
 import { ipcRenderer } from 'electron';
 
 console.log('Start');
+console.log('Version:', process.env.VERSION);
 
 ipcRenderer.send('app:ready', { foo: 'bar' });
 
-ipcRenderer.on('app:ready:reply', (event: Event, data: any) => {
-    console.log('app:ready:reply', JSON.stringify(data));
+ipcRenderer.on('google:token', (event: Event, token: string) => {
+    console.log('google:token', JSON.stringify(token));
 });
