@@ -1,4 +1,4 @@
-import got from 'got';
+import { post } from 'got';
 import { URL } from 'url';
 import log from './log';
 import { auth as config } from '../config'
@@ -10,8 +10,7 @@ interface ITokens {
 }
 
 export const getTokens = async (approvalToken: string): Promise<ITokens> => {
-    const response = await got('https://www.googleapis.com/oauth2/v4/token', {
-        method: 'POST',
+    const response = await post('https://www.googleapis.com/oauth2/v4/token', {
         form: true,
         body: {
             code: approvalToken,

@@ -3,12 +3,6 @@ import log from './log';
 
 autoUpdater.logger = log;
 
-log.verbose(`Updater channel: ${autoUpdater.channel}`);
-
-autoUpdater.on('checking-for-update', () => {
-  log.verbose(`Update URL: "${autoUpdater.getFeedURL()}"`);
-});
-
 autoUpdater.on('update-available', (info) => {
   log.debug(`Update available: ${JSON.stringify(info, null, 4)}`);
 });
@@ -16,10 +10,6 @@ autoUpdater.on('update-available', (info) => {
 autoUpdater.on('update-not-available', (info) => {
   log.debug(`Update not available: ${JSON.stringify(info, null, 4)}`);
 });
-
-// autoUpdater.on('error', (err) => {
-//   log.error('[Joshuan] Error in auto-updater. ' + err);
-// });
 
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;

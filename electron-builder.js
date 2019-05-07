@@ -33,7 +33,7 @@ module.exports = {
       branch: `https://s3.eu-central-1.amazonaws.com/family-photos-app-dev${dirName}/`,
       pr: `https://s3.eu-central-1.amazonaws.com/family-photos-app-dev${dirName}/`,
       tag: 'https://s3.eu-central-1.amazonaws.com/family-photos-app/'
-    },
+    }[buildVariant],
     channel: {
       branch: 'beta',
       pr: 'alpha',

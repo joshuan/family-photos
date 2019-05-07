@@ -2,7 +2,7 @@
 
 echo "0. Install dependencies (OS - $TRAVIS_OS_NAME):"
 if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-    npm ci --ignore-scripts
+    npm ci --ignore-scripts || exit 2
 else
-    npm ci
+    npm ci || exit 2
 fi
