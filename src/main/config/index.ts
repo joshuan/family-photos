@@ -6,3 +6,8 @@ export const auth = {
         'https://www.googleapis.com/auth/photoslibrary.readonly'
     ]
 };
+
+export const keytar = {
+    SERVICE: 'FAMILY_PHOTOS',
+    ACCOUNT: 'GOOGLE_PHOTOS'
+};

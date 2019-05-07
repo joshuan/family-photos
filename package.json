@@ -44,13 +44,14 @@
         "babel-polyfill": "6.26.0",
         "debug": "4.1.1",
         "dotenv": "8.0.0",
-        "electron": "5.0.0",
+        "electron": "5.0.1",
         "electron-builder": "20.39.0",
         "electron-rebuild": "1.8.4",
         "node-loader": "0.6.0",
+        "source-map-support": "0.5.12",
         "typescript": "3.4.5",
         "webpack": "5.0.0-alpha.11",
-        "webpack-cli": "3.3.1",
+        "webpack-cli": "3.3.2",
         "webpack-node-externals": "1.7.2"
     }
 }

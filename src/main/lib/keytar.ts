@@ -1,19 +1,16 @@
-import * as keytar from 'keytar';
-import logs from './log';
-
-const SERVICE = 'FAMILY_PHOTOS';
-const ACCOUNT = 'GOOGLE_PHOTOS';
+import { getPassword, setPassword } from 'keytar';
+import { keytar as config } from '../config';
 
 type TokenTypes = 'ACCESS' | 'REFRESH' | 'ID';
 
 const getAccountName = (type: TokenTypes) => {
-    return `${ACCOUNT}_${type}_TOKEN`;
+    return `${config.ACCOUNT}_${type}_TOKEN`;
 }
 
 export const getToken = (type: TokenTypes) => {
-    return keytar.getPassword(SERVICE, getAccountName(type));
+    return getPassword(config.SERVICE, getAccountName(type));
 }
 
 export const saveToken = (token: string, type: TokenTypes) => {
-    return keytar.setPassword(SERVICE, getAccountName(type), token);
+    return setPassword(config.SERVICE, getAccountName(type), token);
 };

@@ -25,7 +25,7 @@ module.exports = {
     "index.html",
     "build/main/**/*",
     "build/renderer/**/*",
-    "node_modules/**/*"
+    "node_modules/keytar/**/*"
   ],
   publish: CI && {
     provider: 'generic',
