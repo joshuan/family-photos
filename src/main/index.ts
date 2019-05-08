@@ -2,11 +2,12 @@ import { app } from 'electron';
 import './lib/debug';
 import { open } from './lib/app';
 import { init as initUpdater } from './lib/autoUpdater';
+import './lib/tray';
 
 app.on('ready', () => {
     open()
         .then(() => {
-            initUpdater();
+            // initUpdater();
         });
 });
 
